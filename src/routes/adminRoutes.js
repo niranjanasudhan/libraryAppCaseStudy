@@ -31,68 +31,116 @@ var upload1 = multer({ storage: storage1 })
 
 function router(nav) {
     adminRouter.get('/add-book', function(req, res) {
-        res.render('books/add-book', {
-            nav,
-            title: 'Library App'
-        })
+        if (req.session.user_type == "admin") {
+            res.render('books/add-book', {
+                nav,
+                title: 'Library App'
+            })
+
+        } else {
+            res.render('no-access', {
+                nav,
+                title: 'Library App'
+            })
+
+        }
+
+
+
     });
 
     adminRouter.get('/add-author', function(req, res) {
-        res.render('authors/add-author', {
-            nav,
-            title: 'Library App'
-        })
+        if (req.session.user_type == "admin") {
+            res.render('authors/add-author', {
+                nav,
+                title: 'Library App'
+            })
+        } else {
+            res.render('no-access', {
+                nav,
+                title: 'Library App'
+            })
+
+        }
     });
 
     adminRouter.get('/editBook/:id', function(req, res) {
-        const id = req.params.id;
-        Bookdata.findOne({ _id: id })
-            .then(function(book) {
-                res.render('books/edit-book', {
-                    nav,
-                    title: 'Library App',
-                    book
+        if (req.session.user_type == "admin") {
+            const id = req.params.id;
+            Bookdata.findOne({ _id: id })
+                .then(function(book) {
+                    res.render('books/edit-book', {
+                        nav,
+                        title: 'Library App',
+                        book
+                    });
                 });
-            });
+        } else {
+            res.render('no-access', {
+                nav,
+                title: 'Library App'
+            })
+        }
     });
 
     adminRouter.get('/deleteBook/:id', function(req, res) {
-        const id = req.params.id;
-        Bookdata.deleteOne({ _id: id })
-            .then(function(book) {
-                // res.render('books/books', {
-                //     nav,
-                //     title: 'Library App',
-                //     book
-                // });
-                res.redirect('/books');
-            });
+        if (req.session.user_type == "admin") {
+            const id = req.params.id;
+            Bookdata.deleteOne({ _id: id })
+                .then(function(book) {
+                    // res.render('books/books', {
+                    //     nav,
+                    //     title: 'Library App',
+                    //     book
+                    // });
+                    res.redirect('/books');
+                });
+        } else {
+            res.render('no-access', {
+                nav,
+                title: 'Library App'
+            })
+        }
     });
 
 
     adminRouter.get('/editAuthor/:id', function(req, res) {
-        const id = req.params.id;
-        Authordata.findOne({ _id: id })
-            .then(function(author) {
-                res.render('authors/edit-author', {
-                    nav,
-                    title: 'Library App',
-                    author
+        if (req.session.user_type == "admin") {
+            const id = req.params.id;
+            Authordata.findOne({ _id: id })
+                .then(function(author) {
+                    res.render('authors/edit-author', {
+                        nav,
+                        title: 'Library App',
+                        author
+                    });
                 });
-            });
+        } else {
+            res.render('no-access', {
+                nav,
+                title: 'Library App'
+            })
+        }
     });
 
     adminRouter.get('/deleteAuthor/:id', function(req, res) {
-        const id = req.params.id;
-        Authordata.deleteOne({ _id: id })
-            .then(function(author) {
-                // res.render('authors/authors', {
-                //     nav,
-                //     title: 'Library App',
-                //     author
-                // });
-                res.redirect('/authors');
-            });
+        if (req.session.user_type == "admin") {
+            const id = req.params.id;
+            Authordata.deleteOne({ _id: id })
+                .then(function(author) {
+                    // res.render('authors/authors', {
+                    //     nav,
+                    //     title: 'Library App',
+                    //     author
+                    // });
+                    res.redirect('/authors');
+                });
+        } else {
+            res.render('no-access', {
+                nav,
+                title: 'Library App'
+            })
+        }
     });
 
     adminRouter.post('/add', upload.single('image'), function(req, res) {

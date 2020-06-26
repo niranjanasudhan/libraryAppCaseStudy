@@ -4,6 +4,7 @@ mongoose.connect('mongodb://localhost:27017/library', { useNewUrlParser: true, u
 const Schema = mongoose.Schema;
 
 const AuthSchema = new Schema({
+    user_type: String,
     name: String,
     gender: String,
     dob: String,

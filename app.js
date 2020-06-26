@@ -1,6 +1,12 @@
 const express = require('express');
 const { request } = require('express');
+// var cookieParser = require('cookie-parser');
+// var session = require('express-session');
+var session = require('express-session');
+
 const app = new express();
+app.use(session({ secret: 'your secret', saveUninitialized: true, resave: false }));
+var sess;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 const nav = [
