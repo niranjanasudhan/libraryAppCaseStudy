@@ -1,15 +1,12 @@
-"# libraryApp" 
+"# libraryApp Case Study 2" 
 <br>
-ASSIGNMENT ON NODE+EXPRESS
-<br>
-Assignment 2 
+Case Study 2 NODE+EXPRESS
 <br>
 <br>
-Seperate router module for book and author
 <br>
-Seperate folder book and author view files
+Implemented update and delete operations for Books in the Library App.
 <br>
-'Add new book' link added on book listing page.
+Implemented update and delete operations for Authors in the Library App.
 <br>
-Validation added for 'add book' section (client side validation)
-"# libraryAppCaseStudy" 
+Implemented SignUp and Login Operations in the Library App.
+ 
