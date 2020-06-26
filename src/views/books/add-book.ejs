@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm bg-light navbar-light">
+        <ul class="navbar-nav">
+            <% for(i=0;i<nav.length;i++) { %>
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="<%= nav[i].link %>">
+                        <%= nav[i].name %>
+                    </a>
+                </li>
+                <% } %>
+
+        </ul>
+        <!-- <div class="sign_text">
+
+            <i class="fa fa-user"></i><a href="sign-in.html"> Sign In</a> or <a href="sign-up.html">Create Account</a>
+        </div> -->
+    </nav>
+    <div class="jumbotron top">
+        <div class="col-md-7">
+            <h1>Books</h1>
+        </div>
+        <div class="col-md-5 blank_space">
+
+        </div>
+    </div>
+
+    <div class="container main">
+        <h1>ADD BOOK</h1>
+        <hr>
+        <div class="sign_up">
+            <div class="col-md-8">
+                <form class="form-horizontal" enctype="multipart/form-data" id="myForm" method="POST" action="/admin/add" onsubmit="return book_validate()">
+                    <div class="form-group">
+                        <label class="col-md-3">Book Name <small class="mand">*</small></label>
+                        <div class="col-md-10">
+                            <small class="mand" id="book_error_name"></small>
+                            <input type="text" class="form-control" id="book_name" name="title" onblur="book_validate_name(this.value)" placeholder="Enter Book Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3">Author Name <small class="mand">*</small></label>
+                        <div class="col-md-10">
+                            <small class="mand" id="book_error_author_name"></small>
+                            <input type="text" class="form-control" id="book_author_name" name="author" onblur="book_validate_autor_name(this.value)" placeholder="Enter Author Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3">Genre <small class="mand">*</small></label>
+                        <div class="col-md-10">
+                            <small class="mand" id="book_error_genre"></small>
+                            <select type="text" class="form-control" name="genre" id="book_genre" onblur="book_validate_genre(this.value)" placeholder="Select Genre">
+                            <option value="">--Select--</option> 
+                            <option value="Adventure">Adventure</option> 
+                            <option value="Art">Art</option>
+                            <option value="Children’s">Children’s</option>
+                            <option value="Contemporary">Contemporary</option>
+                            <option value="Cooking">Cooking</option>
+                            <option value="Development">Development</option>
+                            <option value="Dystopian">Dystopian</option>
+                            <option value="Families & Relationships">Families & Relationships</option>
+                            <option value="Fantasy">Fantasy</option>
+                            <option value="Guide">Guide</option>
+                            <option value="Health">Health</option>
+                            <option value="Historical fiction">Historical fiction</option>
+                            <option value="History">History</option>
+                            <option value="Horror">Horror</option>
+                            <option value="Humor">Humor</option>
+                            <option value="Memoir">Memoir</option> 
+                            <option value="Motivational">Motivational</option> 
+                            <option value="Mystery">Mystery</option> 
+                            <option value="Paranormal">Paranormal</option>  
+                            <option value="Romance">Romance</option> 
+                            <option value="Science Fiction">Science Fiction</option> 
+                            <option value="Personal">Personal</option> 
+                            <option value="Thriller">Thriller</option> 
+                            <option value="Travel">Travel</option> 
+                                                       </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-md-3">Description <small class="mand">*</small></label>
+                        <div class="col-md-10">
+                            <small class="mand" id="book_error_description"></small>
+                            <textarea class="form-control address_field" name="description" id="book_description" placeholder="Description" onblur="book_validate_description(this.value)"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3">Book Cover Image <small class="mand">*</small></label>
+                        <div class="col-md-10">
+                            <small class="mand" id="book_error_image"></small>
+                            <input type="file" class="form-control " name="image" id="book_image" onblur="book_validate_image(this.value)">
+                        </div>
+                        <img id="preview" src="/images/nopreview.png" alt="Book cover" />
+                    </div>
+
+
+
+
+
+
+
+
+
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-primary submit_button">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Success Modal -->
+    <div id="modal_add_book" class="modal">
+        <div class="modal-content">
+            <div>
+                <span class="close">&times;</span>
+            </div>
+            <div class="success_img">
+                <img src="/images/tik.gif">
+            </div>
+            <div class="success_h1">
+                <h1>Book Details Added Successfully</h1>
+            </div>
+            <br>
+            <a class="success_btn" href="/books"><button class="btn btn-primary">View Books List</button></a>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="container">
+            <h1>Follow Us</h1>
+            <div class="social_icon">
+                <button class="btn btn-info">Twitter</button>
+                <button class="btn btn-primary">Facebook</button>
+                <button class="btn btn-danger">Google+</button>
+            </div>
+        </div>
+
+
+    </footer>
+    <script src="/js/form.js"></script>
+</body>
+
+</html>

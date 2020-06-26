@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm bg-light navbar-light">
+        <ul class="navbar-nav">
+            <% for(i=0;i<nav.length;i++) { %>
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="<%= nav[i].link %>">
+                        <%= nav[i].name %>
+                    </a>
+                </li>
+                <% } %>
+
+        </ul>
+    </nav>
+    <div class="jumbotron top">
+        <div class="col-md-7">
+            <h1>
+                <%=title %>
+            </h1>
+        </div>
+        <div class="col-md-5 blank_space">
+
+        </div>
+    </div>
+
+    <div class="container main">
+        <h1>Sign Up</h1>
+        <hr>
+        <div class="sign_up">
+            <div class="col-md-8">
+                <form class="form-horizontal" id="myForm" method="post" action="/new" onsubmit="return signup_validate()">
+                    <div class="form-group">
+                        <label class="col-md-3">Name <small class="mand">*</small></label>
+                        <div class="col-md-10">
+                            <small class="mand" id="error_name"></small>
+                            <input type="text" class="form-control" name="name" id="name" onblur="validate_name(this.value)" placeholder="Enter Name">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3">Gender <small class="mand">*</small></label>
+                        <div class="col-md-10">
+                            <small class="mand" id="error_gender"></small>
+                            <select class="form-control" id="gender" name="gender" onblur="validate_gender(this.value)">
+                                <option value="">-- Select Gender --</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3">Date of Birth <small class="mand">*</small></label>
+                        <div class="col-md-10">
+                            <small class="mand" id="error_dob"></small>
+                            <input type="date" class="form-control" id="dob" name="dob" onblur="validate_dob(this.value)">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3">Address <small class="mand">*</small></label>
+                        <div class="col-md-10">
+                            <small class="mand" id="error_address"></small>
+                            <textarea class="form-control address_field" name="address" id="address" placeholder="Address" onblur="validate_address(this.value)"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3">Email <small class="mand">*</small></label>
+                        <div class="col-md-10">
+                            <small class="mand" id="error_email"></small>
+                            <input type="email" class="form-control" name="email" id="email" onblur="validate_email(this.value)" placeholder="Enter Email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3">Phone <small class="mand">*</small></label>
+                        <div class="col-md-10">
+                            <small class="mand" id="error_phone"></small>
+                            <input type="text" class="form-control" name="phone" id="phone" onblur="validate_phone(this.value)" placeholder="Enter Phone">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3">Password <small class="mand">*</small></label>
+                        <div class="col-md-10">
+                            <small class="mand" id="error_password"></small>
+                            <input type="password" name="password" onfocus="show_instructions()" onkeydown="hide_instructions()" class="form-control pass" onKeyup="passwordStrenght(this.value)" id="password" onblur="validate_password(this.value)" placeholder="Enter Password">
+                            <div class="bubble" id="bub">
+                                <p>
+
+                                    <b>*</b> At least one lowercase character<br> <b>*</b> At least one uppercase character<br> <b>*</b> At least one number<br> <b>*</b> At least 8 characters and maximum of 32 characters<br>
+
+
+                                </p>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-danger" id="strength" style="width:0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3">Confirm Password <small class="mand">*</small></label>
+                        <div class="col-md-10">
+                            <small class="mand" id="error_confirm_password"></small>
+                            <input type="password" class="form-control" id="confirm_password" onblur="validate_confirm_password(this.value)" placeholder="Enter Password">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-primary submit_button">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Success Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div>
+                <span class="close">&times;</span>
+            </div>
+            <div class="success_img">
+                <img src="images/tik.gif">
+            </div>
+            <div class="success_h1">
+                <h1>You have been Registered Successfully</h1>
+            </div>
+            <br>
+            <a class="success_btn" href="/sign-in"><button class="btn btn-primary">Login To Continue..</button></a>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="container">
+            <h1>Follow Us</h1>
+            <div class="social_icon">
+                <button class="btn btn-info">Twitter</button>
+                <button class="btn btn-primary">Facebook</button>
+                <button class="btn btn-danger">Google+</button>
+            </div>
+        </div>
+
+
+    </footer>
+    <script src="/js/form.js"></script>
+</body>
+
+</html>
